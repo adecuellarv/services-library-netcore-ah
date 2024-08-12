@@ -22,7 +22,7 @@ namespace WebApplicationApi.Infrastructure.Web
         [HttpGet]
         public async Task<ActionResult<List<Book>>> GetAllBooks()
         {
-            return await _bookService.GetAllBooks();  //_mediator.Send(new GetAllBooks());
+            return Ok(await _bookService.GetAllBooks());
         }
 
         // GET api/<BookController>/5

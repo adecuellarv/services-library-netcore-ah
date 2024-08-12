@@ -14,7 +14,7 @@ builder.Services.AddControllers();
 // Configura el contexto de la base de datos
 builder.Services.AddSingleton<NpgsqlConnection>(sp => new NpgsqlConnection(builder.Configuration.GetConnectionString("ConexionDB")));
 
-builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddScoped<BookRepository, BookRepository>();
 
 //builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 

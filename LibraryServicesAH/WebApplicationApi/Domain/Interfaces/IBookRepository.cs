@@ -7,9 +7,10 @@ namespace WebApplicationApi.Domain.Interfaces
 {
     public interface IBookRepository
     {
-        Task AddBookSync(Book book);
         Task<List<Book>> GetAllBooks();
+        Task AddBookSync(Book book);
         Task<Book> GetBookById(int bookId);
         Task UpdateBookSync(Book book);
+        Task DeleteAsync(int bookId);
     }
 }

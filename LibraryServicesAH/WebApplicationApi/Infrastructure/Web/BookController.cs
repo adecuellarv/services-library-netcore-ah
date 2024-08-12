@@ -11,17 +11,18 @@ namespace WebApplicationApi.Infrastructure.Web
     [ApiController]
     public class BookController : ControllerBase
     {
+        private readonly BookRepository _bookService;
         private readonly IMediator _mediator;
-        public BookController(IMediator mediator)
+        public BookController(BookRepository bookService)
         {
-            _mediator = mediator;
+            _bookService = bookService;
         }
 
         // GET: api/<BookController>
         [HttpGet]
         public async Task<ActionResult<List<Book>>> GetAllBooks()
         {
-            return await _mediator.Send(new GetAllBooks());
+            return await _bookService.GetAllBooks();  //_mediator.Send(new GetAllBooks());
         }
 
         // GET api/<BookController>/5

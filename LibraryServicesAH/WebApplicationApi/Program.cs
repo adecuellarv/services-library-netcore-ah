@@ -15,6 +15,7 @@ builder.Services.AddControllers();
 builder.Services.AddSingleton<NpgsqlConnection>(sp => new NpgsqlConnection(builder.Configuration.GetConnectionString("ConexionDB")));
 
 builder.Services.AddScoped<BookRepository, BookRepository>();
+builder.Services.AddScoped<CategoryRepository, CategoryRepository>();
 
 //builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 

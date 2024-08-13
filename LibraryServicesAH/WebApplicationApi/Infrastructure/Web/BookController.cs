@@ -61,7 +61,6 @@ namespace WebApplicationApi.Infrastructure.Web
             try
             {
                 return Ok(await _bookService.CreateBookAsync(data, scheme, host));
-                //return CreatedAtAction(nameof(GetBookById), new { id = result.Id }, result); // Ajusta según tu implementación
             }
             catch (ArgumentException ex)
             {

@@ -10,6 +10,10 @@
         public string BookPdf { get; set; }
         public int CategoryId { get; set; }
 
+        // Constructor sin parámetros
+        public AddBookDto() { }
+
+        // Constructor con parámetros
         public AddBookDto(string name, string description, string image, string pdf, int categoryId)
         {
             BookName = name;

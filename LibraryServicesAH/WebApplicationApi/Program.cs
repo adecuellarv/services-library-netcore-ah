@@ -1,6 +1,7 @@
 using MediatR;
 using Npgsql;
 using System.Reflection;
+using WebApplicationApi.Application.Services;
 using WebApplicationApi.Domain.Interfaces;
 using WebApplicationApi.Infrastructure.Data;
 using WebApplicationApi.Infrastructure.Data.Queries.cs;
@@ -14,6 +15,7 @@ builder.Services.AddControllers();
 // Configura el contexto de la base de datos
 builder.Services.AddSingleton<NpgsqlConnection>(sp => new NpgsqlConnection(builder.Configuration.GetConnectionString("ConexionDB")));
 
+builder.Services.AddScoped<BookService, BookService>();
 builder.Services.AddScoped<BookRepository, BookRepository>();
 builder.Services.AddScoped<CategoryRepository, CategoryRepository>();
 

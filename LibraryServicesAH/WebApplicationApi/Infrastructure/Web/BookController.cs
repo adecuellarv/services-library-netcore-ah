@@ -1,5 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using WebApplicationApi.Application;
+using WebApplicationApi.Application.Services;
 using WebApplicationApi.Domain.Entities;
 using WebApplicationApi.Domain.Exceptions;
 using WebApplicationApi.Infrastructure.Data;
@@ -14,10 +16,12 @@ namespace WebApplicationApi.Infrastructure.Web
     
     public class BookController : ControllerBase
     {
-        private readonly BookRepository _bookService;
+        private readonly BookRepository _bookRepository;
+        private readonly IBookService _bookService;
         private readonly IMediator _mediator;
-        public BookController(BookRepository bookService)
+        public BookController(BookRepository bookRepository, IBookService bookService)
         {
+            _bookRepository = bookRepository;
             _bookService = bookService;
         }
 
@@ -27,7 +31,7 @@ namespace WebApplicationApi.Infrastructure.Web
         {
             try
             {
-                return Ok(await _bookService.GetAllBooks());
+                return Ok(await _bookRepository.GetAllBooks());
             
             }
             catch (CustomException ex)
@@ -49,8 +53,24 @@ namespace WebApplicationApi.Infrastructure.Web
 
         // POST api/<BookController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<Unit>> Create([FromForm] AddBookDto data)
         {
+            var scheme = Request.Scheme;
+            var host = Request.Host.Value;
+
+            try
+            {
+                return Ok(await _bookService.CreateBookAsync(data, scheme, host));
+                //return CreatedAtAction(nameof(GetBookById), new { id = result.Id }, result); // Ajusta según tu implementación
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
         }
 
         // PUT api/<BookController>/5

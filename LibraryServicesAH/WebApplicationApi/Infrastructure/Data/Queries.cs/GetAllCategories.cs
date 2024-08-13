@@ -45,7 +45,7 @@ namespace WebApplicationApi.Infrastructure.Data.Queries.cs
                 catch (Exception ex)
                 {
                     _logger.LogError(ex, "Error al traer categorias: {Message}", ex.Message);
-                    throw new CustomException(500, "Error al traer la lista de categorias.", ex);
+                    throw new CustomException(400, "Error al traer la lista de categorias.", ex);
                 }
                 finally
                 {

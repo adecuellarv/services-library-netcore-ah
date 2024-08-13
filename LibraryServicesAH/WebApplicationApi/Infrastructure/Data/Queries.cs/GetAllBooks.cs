@@ -47,7 +47,7 @@ namespace WebApplicationApi.Infrastructure.Data.Queries.cs
                 catch (Exception ex)
                 {
                     _logger.LogError(ex, "Error al traer la lista de libros: {Message}", ex.Message);
-                    throw new CustomException(500, "Error al traer la lista de libros.", ex);
+                    throw new CustomException(400, "Error al traer la lista de libros.", ex);
                     //throw new Exception("Error al traer la lista de libros", ex);
                 }
                 finally

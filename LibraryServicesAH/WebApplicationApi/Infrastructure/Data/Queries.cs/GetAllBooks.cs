@@ -31,7 +31,7 @@ namespace WebApplicationApi.Infrastructure.Data.Queries.cs
                 var bookList = new List<Book>();
                 try
                 {
-                    using (var command = new NpgsqlCommand("SELECT * FROM public.booksv;", _connection))
+                    using (var command = new NpgsqlCommand("SELECT * FROM public.books;", _connection))
                     {
                         using (var reader = await command.ExecuteReaderAsync(cancellationToken))
                         {

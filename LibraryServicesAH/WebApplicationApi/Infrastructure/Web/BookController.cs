@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using WebApplicationApi.Domain.Entities;
+using WebApplicationApi.Domain.Exceptions;
 using WebApplicationApi.Infrastructure.Data;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -9,6 +10,8 @@ namespace WebApplicationApi.Infrastructure.Web
 {
     [Route("api/[controller]")]
     [ApiController]
+
+    
     public class BookController : ControllerBase
     {
         private readonly BookRepository _bookService;
@@ -22,7 +25,19 @@ namespace WebApplicationApi.Infrastructure.Web
         [HttpGet]
         public async Task<ActionResult<List<Book>>> GetAllBooks()
         {
-            return Ok(await _bookService.GetAllBooks());
+            try
+            {
+                return Ok(await _bookService.GetAllBooks());
+            
+            }
+            catch (CustomException ex)
+            {
+                return StatusCode(ex.ErrorCode, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
         }
 
         // GET api/<BookController>/5

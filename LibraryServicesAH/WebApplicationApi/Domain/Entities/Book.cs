@@ -9,8 +9,9 @@
         public string BookPdf { get; set; }
         public int CategoryId { get; set; }
 
-        public Book(string name, string description, string image, string pdf, int categoryId)
+        public Book(int id, string name, string description, string image, string pdf, int categoryId)
         {
+            BookId = id;
             BookName = name;
             BookDescription = description;
             BookImage = image;

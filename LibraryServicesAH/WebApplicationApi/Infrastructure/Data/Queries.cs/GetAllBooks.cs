@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Npgsql;
 using System.Data;
+using WebApplicationApi.Domain.Exceptions;
 using WebApplicationApi.Domain.Entities;
 
 namespace WebApplicationApi.Infrastructure.Data.Queries.cs
@@ -30,22 +31,14 @@ namespace WebApplicationApi.Infrastructure.Data.Queries.cs
                 var bookList = new List<Book>();
                 try
                 {
-                    using (var command = new NpgsqlCommand("SELECT * FROM public.books;", _connection))
+                    using (var command = new NpgsqlCommand("SELECT * FROM public.booksv;", _connection))
                     {
                         using (var reader = await command.ExecuteReaderAsync(cancellationToken))
                         {
                             while (await reader.ReadAsync(cancellationToken))
                             {
 
-                                var book = new Book(reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetInt32(5));
-                                /*var book = new Book {
-                                    BookId = reader.GetInt32(0),
-                                    BookName = reader.GetString(1),
-                                    BookDescription = reader.GetString(2),
-                                    BookImage = reader.GetString(3),
-                                    BookPdf = reader.GetString(4),
-                                    CategoryId = reader.GetInt32(5)
-                                };*/
+                                var book = new Book(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetInt32(5));
                                 bookList.Add(book);
                             }
                         }
@@ -54,7 +47,8 @@ namespace WebApplicationApi.Infrastructure.Data.Queries.cs
                 catch (Exception ex)
                 {
                     _logger.LogError(ex, "Error al traer la lista de libros: {Message}", ex.Message);
-                    throw new Exception("Error al traer la lista de libros", ex);
+                    throw new CustomException(500, "Error al traer la lista de libros.", ex);
+                    //throw new Exception("Error al traer la lista de libros", ex);
                 }
                 finally
                 {

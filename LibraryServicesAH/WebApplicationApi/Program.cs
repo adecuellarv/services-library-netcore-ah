@@ -20,6 +20,7 @@ builder.Services.AddScoped<BookRepository, BookRepository>();
 
 builder.Services.AddMediatR(typeof(GetAllBooks.Managment).Assembly);
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

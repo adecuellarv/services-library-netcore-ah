@@ -52,7 +52,7 @@ namespace WebApplicationApi.Infrastructure.Data.Queries.cs
                 catch (Exception ex)
                 {
                     _logger.LogError(ex, "Error al agregar libro: {Message}", ex.Message);
-                    throw new CustomException(400, "Error al agregar libro.", ex);
+                    throw new CustomException(400, "Error al agregar libro.");
                 }
                 finally
                 {

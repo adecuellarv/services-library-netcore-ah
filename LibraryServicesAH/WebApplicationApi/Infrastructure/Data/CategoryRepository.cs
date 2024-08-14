@@ -17,9 +17,21 @@ namespace WebApplicationApi.Infrastructure.Data
         {
             return await _mediator.Send(new GetAllCategories.Categories());
         }
-
-        public Task AddCategory(Category category) => throw new Exception("WIP");
-        public Task UpdateCategory(Category category) => throw new Exception("WIP");
-        public Task DeleteCategory(int id) => throw new Exception("WIP");
+        public async Task AddCategory(Category category)
+        {
+            var command = new AddCategory.ExecuteCategory
+            {
+                CategoryName = category.CategoryName
+            };
+            await _mediator.Send(command);
+        }
+        public async Task UpdateCategory(Category category, int id)
+        {
+            await _mediator.Send(new UpdateCategory.ExecuteCategory { CategoryName = category.CategoryName, CategoryId = id });
+        }
+        public async Task DeleteCategory(int id)
+        {
+           await _mediator.Send(new DeleteCategory.ExecuteCategory {  CategoryId = id });
+        }
     }
 }

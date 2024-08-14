@@ -6,7 +6,7 @@ namespace WebApplicationApi.Domain.Interfaces
     {
         Task<List<Category>> GetAllCategories();
         Task AddCategory(Category category);
-        Task UpdateCategory(Category category);
+        Task UpdateCategory(Category category, int? id);
         Task DeleteCategory(int categoryId);
     }
 }

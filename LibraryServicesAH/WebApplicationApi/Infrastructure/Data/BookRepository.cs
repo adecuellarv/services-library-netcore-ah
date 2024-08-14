@@ -33,7 +33,19 @@ public class BookRepository : IBookRepository
 
     public async Task<Book> GetBookById(int id) => throw new NotImplementedException();
 
-    public async Task UpdateBookSync(Book book) => throw new NotImplementedException();
+    public async Task UpdateBook(UpdateBookDto book)
+    {
+        var command = new UpdateBook.ExecuteBook
+        {
+            BookId = book.BookId,
+            BookName = book.BookName,
+            BookDescription = book.BookDescription,
+            BookImage = book.BookImage,
+            BookPdf = book.BookPdf,
+            CategoryId = book.CategoryId
+        };
+        await _mediator.Send(command);
+    }
 
     public async Task DeleteAsync(int id) => throw new NotImplementedException();
 }

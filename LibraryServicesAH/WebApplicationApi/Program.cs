@@ -19,12 +19,15 @@ builder.Services.AddScoped<BookRepository, BookRepository>();
 builder.Services.AddScoped<CategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IBookService, BookService>();
+builder.Services.AddScoped<IUpdateBookService, UpdateBookService>();
 
 builder.Services.AddScoped<CategoryRepository, CategoryRepository>();
 
 // Añadir MediatR
 builder.Services.AddMediatR(typeof(GetAllBooks.Managment).Assembly);
 builder.Services.AddMediatR(typeof(AddBook.Managment).Assembly);
+builder.Services.AddMediatR(typeof(UpdateBook.Managment).Assembly);
+
 
 var app = builder.Build();
 

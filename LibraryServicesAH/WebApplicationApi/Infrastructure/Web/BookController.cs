@@ -18,11 +18,13 @@ namespace WebApplicationApi.Infrastructure.Web
     {
         private readonly BookRepository _bookRepository;
         private readonly IBookService _bookService;
+        private readonly IUpdateBookService _updateBookService;
         private readonly IMediator _mediator;
-        public BookController(BookRepository bookRepository, IBookService bookService)
+        public BookController(BookRepository bookRepository, IBookService bookService, IUpdateBookService updateBookService)
         {
             _bookRepository = bookRepository;
             _bookService = bookService;
+            _updateBookService = updateBookService;
         }
 
         // GET: api/<BookController>
@@ -74,8 +76,23 @@ namespace WebApplicationApi.Infrastructure.Web
 
         // PUT api/<BookController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<ActionResult<Unit>> Update([FromForm] UpdateBookDto data, string id)
         {
+            var scheme = Request.Scheme;
+            var host = Request.Host.Value;
+
+            try
+            {
+                return Ok(await _updateBookService.UpdateBookAsync(data, scheme, host, int.Parse(id)));
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
         }
 
         // DELETE api/<BookController>/5

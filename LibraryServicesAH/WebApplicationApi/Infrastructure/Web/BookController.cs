@@ -1,10 +1,12 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 using WebApplicationApi.Application;
 using WebApplicationApi.Application.Services;
 using WebApplicationApi.Domain.Entities;
 using WebApplicationApi.Domain.Exceptions;
 using WebApplicationApi.Infrastructure.Data;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -48,9 +50,20 @@ namespace WebApplicationApi.Infrastructure.Web
 
         // GET api/<BookController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult<List<Book>>> GetBooksByCat(int id)
         {
-            return "value";
+            try
+            {
+                return Ok(await _bookRepository.GetBookById(id));
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
         }
 
         // POST api/<BookController>

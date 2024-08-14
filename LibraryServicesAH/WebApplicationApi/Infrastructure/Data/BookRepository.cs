@@ -31,7 +31,10 @@ public class BookRepository : IBookRepository
         await _mediator.Send(command);
     }
 
-    public async Task<Book> GetBookById(int id) => throw new NotImplementedException();
+    public async Task<List<Book>> GetBookById(int categoryId)
+    {
+        return await _mediator.Send(new GetBooksByCategory.Books { CategoryId = categoryId });
+    }
 
     public async Task UpdateBook(UpdateBookDto book)
     {
@@ -48,4 +51,5 @@ public class BookRepository : IBookRepository
     }
 
     public async Task DeleteAsync(int id) => throw new NotImplementedException();
+
 }

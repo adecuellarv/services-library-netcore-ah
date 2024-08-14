@@ -10,7 +10,7 @@ namespace WebApplicationApi.Domain.Interfaces
     {
         Task<List<Book>> GetAllBooks();
         Task AddBook(AddBookDto book);
-        Task<Book> GetBookById(int bookId);
+        Task<List<Book>> GetBookById(int categoryId);
         Task UpdateBook(UpdateBookDto book);
         Task DeleteAsync(int bookId);
     }

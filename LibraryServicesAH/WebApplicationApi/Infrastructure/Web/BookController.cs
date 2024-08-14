@@ -110,8 +110,21 @@ namespace WebApplicationApi.Infrastructure.Web
 
         // DELETE api/<BookController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult<Unit>> Delete(int id)
         {
+            try
+            {
+                 await _bookRepository.DeleteBook(id);
+                return StatusCode(200);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
         }
     }
 }

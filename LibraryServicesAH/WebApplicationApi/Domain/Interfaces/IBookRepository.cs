@@ -12,6 +12,6 @@ namespace WebApplicationApi.Domain.Interfaces
         Task AddBook(AddBookDto book);
         Task<List<Book>> GetBookById(int categoryId);
         Task UpdateBook(UpdateBookDto book);
-        Task DeleteAsync(int bookId);
+        Task DeleteBook(int bookId);
     }
 }

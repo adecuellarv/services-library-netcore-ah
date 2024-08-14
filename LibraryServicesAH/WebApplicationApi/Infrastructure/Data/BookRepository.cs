@@ -50,6 +50,9 @@ public class BookRepository : IBookRepository
         await _mediator.Send(command);
     }
 
-    public async Task DeleteAsync(int id) => throw new NotImplementedException();
+    public async Task DeleteBook(int id)
+    {
+        await _mediator.Send(new DeleteBook.ExecuteBook { BookId = id });
+    }
 
 }
